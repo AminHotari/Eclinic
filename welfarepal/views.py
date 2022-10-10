@@ -83,11 +83,12 @@ def regDoc(request):
     Certificate=request.POST['Certificate']
     Location=request.POST['Location']
     Specialization=request.POST['Specialization']
+    MedicalNumber=request.POST['id']
     Experience=request.POST['Experience']
     Phone_Number=request.POST['Phone_Number']
     request.session['fname']= firstname
     request.session['reglog']= True
-    thisDoctor=Doctor.objects.create(fname=firstname,lname=lastname,email=email,password=pw_hash,Certificate=Certificate,Location=Location,Specialization=Specialization,Experience=Experience,Phone_Number=Phone_Number)
+    thisDoctor=Doctor.objects.create(fname=firstname,lname=lastname,email=email,password=pw_hash,MedicalNumber=MedicalNumber,Certificate=Certificate,Location=Location,Specialization=Specialization,Experience=Experience,Phone_Number=Phone_Number)
     request.session['Doctorid']= thisDoctor.id
 
     return redirect("/dashboard")

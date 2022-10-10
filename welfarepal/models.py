@@ -69,6 +69,7 @@ class Doctor(models.Model):
     Specialization = models.CharField(max_length=45)
     Experience = models.DateTimeField()
     Phone_Number = models.IntegerField()
+    MedicalNumber=models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=DrManager()
