@@ -84,13 +84,15 @@ class Patient(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=PatientManager()
-
+    #
 
 class Profile(models.Model):
     Diagnosis=models.CharField(max_length=45)
     Medicines=models.CharField(max_length=45)
     Description=models.CharField(max_length=45)
     Examinations=models.FileField()
+    patient = models.ForeignKey(Patient, related_name="profiles", on_delete = models.CASCADE)
+    doctor = models.ForeignKey(Doctor, related_name="profiles", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -99,5 +101,7 @@ class Appointments(models.Model):
     vacancies=models.DateTimeField()
     clinic=models.CharField(max_length=45)
     clinic_phone=models.IntegerField()
+    patient = models.ForeignKey(Patient, related_name="appointments", on_delete = models.CASCADE)
+    doctor = models.ForeignKey(Doctor, related_name="appointments", on_delete = models.CASCADE)    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
