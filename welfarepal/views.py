@@ -1,3 +1,5 @@
+from multiprocessing import context
+from tokenize import Special
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib import messages 
 from .models import *
@@ -12,10 +14,10 @@ def logDoc(request):
     password=request.POST['password']
     if Doctor.objects.filter(email = email):
         doctor=Doctor.objects.get(email = email)
-        if bcrypt.checkpw(password.encode(), doctor.password.encode()): #User.password == password:
+        if bcrypt.checkpw(password.encode(), doctor.password.encode()): #dr.password == password:
             request.session['fname']=doctor.First_Name
             request.session['reglog']=False #False indicates login while True indicates Register
-            request.session['userid']=doctor.id
+            request.session['drid']=doctor.id
             return redirect("/dashboard")
         else:
             messages.error(request,"password is not valid")
@@ -29,10 +31,10 @@ def logPatient(request):
     password=request.POST['password']
     if Patient.objects.filter(email = email):
         patient=Patient.objects.get(email = email)
-        if bcrypt.checkpw(password.encode(), patient.password.encode()): #User.password == password:
+        if bcrypt.checkpw(password.encode(), patient.password.encode()): #dr.password == password:
             request.session['fname']=patient.First_Name
             request.session['reglog']=False #False indicates login while True indicates Register
-            request.session['userid']=patient.id
+            request.session['patientid']=patient.id
             return redirect("/dashboard")
         else:
             messages.error(request,"password is not valid")
@@ -61,7 +63,7 @@ def regPatient(request):
     request.session['fname']= firstname
     request.session['reglog']= True
     patient=Patient.objects.create(First_Name=firstname, Last_Name=lastname, password=pw_hash, Personal_ID=id, Marital_Status=Status, Gender=Gender)
-    request.session['Patientid']= patient.id
+    request.session['patientid']= patient.id
 
     return redirect("/dashboard")
 
@@ -89,9 +91,51 @@ def regDoc(request):
     request.session['fname']= firstname
     request.session['reglog']= True
     thisDoctor=Doctor.objects.create(fname=firstname,lname=lastname,email=email,password=pw_hash,MedicalNumber=MedicalNumber,Certificate=Certificate,Location=Location,Specialization=Specialization,Experience=Experience,Phone_Number=Phone_Number)
-    request.session['Doctorid']= thisDoctor.id
+    request.session['drid']= thisDoctor.id
 
     return redirect("/dashboard")
+
+    
+def specialization(request,special):
+    locations=Doctor.objects.Location.all()
+    thislocation=request.POST['location']
+    doctors=Doctor.objects.filter(Specialization=special,Location=thislocation)
+    context={
+        'drs':doctors,
+        'locations':locations
+    }
+    return render(request,"specialization.html",context)
+
+def appointments(request):
+    thisdoctor=Doctor.objects.get(id=request.session['drid'])
+    myappointments=appointments.objects.filter(doctor=thisdoctor)
+    context={
+        'myappointments':myappointments
+    }
+    return render(request,"dr_dashboard.html",context)
+
+def pappointments(request):
+    thispatient=Patient.objects.get(id=request.session['patientid'])
+    myappointments=appointments.objects.filter(patient=thispatient)
+    context={
+        'myappointments':myappointments
+    }
+    return render(request,"patient_dashboard.html",context) 
+
+def profile(request,id):
+    thisdoctor=Doctor.objects.get(id=request.session['drid'])
+    drs=Doctor.objects.filter(Specialization=thisdoctor.Specialization)
+    thispatient=Patient.objects.get(id=id)
+    profile=thispatient.Profile.filter(doctor=drs)    #We used a filter based on array of doctors with specific specialization error might happen
+    context={
+        'profile':profile
+    }
+    return render(request,"patientprofile.html",context)
+
+
+
+
+
 
 
 
