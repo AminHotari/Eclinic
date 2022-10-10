@@ -63,6 +63,7 @@ class PatientManager(models.Manager):
 class Doctor(models.Model):
     First_Name = models.CharField(max_length=45)
     Last_Name = models.CharField(max_length=45)
+    password=models.CharField(max_length=255)
     Certificate = models.CharField(max_length=45)
     Location = models.CharField(max_length=45)
     Specialization = models.CharField(max_length=45)
@@ -76,6 +77,7 @@ class Doctor(models.Model):
 class Patient(models.Model):
     First_Name = models.CharField(max_length=45)
     Last_Name = models.CharField(max_length=45)
+    password=models.CharField(max_length=255)
     Personal_ID = models.CharField(max_length=45)
     Marital_Status = models.CharField(max_length=45)
     Gender = models.CharField(max_length=45)
