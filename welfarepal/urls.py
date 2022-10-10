@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.frontpage),
+    path('logreg', views.logreg),
 ]
