@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPEKYOLU</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/MainPage.css' %}"> 
+</head>
+
+<body>
+    <main>
+        <header>
+            <img src="{% static 'css/images/222222222-removebg-preview.png'%}" alt="icon">
+            <a href="/home">Home</a>
+            <a href="/reg">Regstration</a>
+            <a href="/login">Login</a>
+            <a href="/contactUs">Contact Us</a>
+        </header>
+        <div class="specialties">
+            <div class="one">
+                <div class="General">
+                    <h2>General Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/gennn.jpg'%}" alt="General Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+                <div class="Babies">
+                    <h2>Pediatrician Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/baby.jpg'%}" alt="Pediatrician Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+
+                <div class="Dentist">
+                    <h2>Dental Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/newden.jpg'%}"alt="Dental Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+            </div>
+            <div class="two">
+                <div class="Internal">
+                    <h2>Internal Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/inter.jpg'%}" alt="Internal Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+                <div class="Ophthalmologist">
+                    <h2>Ophthalmologist Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/new eye.jpg'%}" alt="Ophthalmologist Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+                <div class="Dermatologist">
+                    <h2>Dermatologist Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/skin.jpg'%}" alt="Dermatologist Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+            </div>
+            <div class="three">
+                <div class="Orthopedic">
+                    <h2>Orthopedic Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/bones.png'%}" alt="Orthopedic Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+                <div class="Neurologist ">
+                    <h2>Neurologist Clinic</h2>
+                    <img class="clinic"
+                        src="{% static 'css/images/depositphotos_67729137-stock-illustration-mental-health-icon-concept.jpg'%}"
+                        alt="Neurologist Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+                <div class="Gynecologist ">
+                    <h2>Gynecologist Clinic</h2>
+                    <img class="clinic" src="{% static 'css/images/womensss.jpg'%}" alt="Gynecologist Clinic">
+                    <a class="bookHere" href="#">Book Here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
