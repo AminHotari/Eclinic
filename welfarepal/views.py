@@ -57,6 +57,7 @@ def PatientDash (request , id):
     }
     return render (request , 'patient_dashboard.html' , context)
 
+
 def regPatient(request):
     errors = Patient.objects.Patient_validator(request.POST)
     email=request.POST['email'] 
@@ -65,6 +66,7 @@ def regPatient(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
+
         return render(request , 'LoginAndReg.html')
     
     else :
@@ -86,6 +88,8 @@ def regPatient(request):
         return redirect("/patientDash")
 
 
+
+# Dr Registration 
 def regDoc(request):
     errors = Doctor.objects.Doctor_validator(request.POST)
     email=request.POST['email'] 
@@ -94,8 +98,10 @@ def regDoc(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
+
         return render(request , 'LoginAndReg.html')
     
+
     firstname=request.POST['firstname']
     lastname=request.POST['lastname']
     password=request.POST['password'] 
@@ -106,6 +112,7 @@ def regDoc(request):
     Specialization=request.POST['Specilization']
     MedicalNumber=request.POST['id']
     Experience=request.POST['Experience']
+
     Phone_Number=request.POST['Phonenumber']
     request.session['fname']= firstname
     request.session['reglog']= True
@@ -114,6 +121,7 @@ def regDoc(request):
     request.session['drid']= thisDoctor.id
 
     return redirect("/DoctorDash")
+
 
     
 def specialization(request,special):
@@ -150,6 +158,7 @@ def profile(request,id):
     context={
         'profile':profile
     }
+
     return render(request,"patientprofile.html",context)
 
 
@@ -169,10 +178,3 @@ def logoutP (request) :
 def logoutD (request) :
     del request.session['drid']
     return redirect ('/')
-
-
-
-
-
-
-
