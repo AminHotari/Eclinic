@@ -126,3 +126,24 @@ def profile(request,id):
         'profile':profile
     }
     return render(request,"patientprofile.html",context)
+
+def show(request,id):
+    context={
+        'patient':Patient.objects.get(id = int(id))
+    }
+    return render (request,'show.html',context)
+
+def update(request,id):
+    context={
+        'patient':Patient.objects.get(id = int(id))
+    }
+    return render (request,'update.html',context)
+
+def update_patient(request,id):
+    patient = Patient.objects.get(id = int(id))
+    patient.profiles.description = request.POST['description']
+    patient.profiles.medicines = request.POST['medicines']
+    patient.profiles.examinations = request.POST['examinations']
+    patient.save()
+    return redirect('/show/'+ str(id))
+    
