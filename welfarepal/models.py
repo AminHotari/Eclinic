@@ -69,6 +69,7 @@ class PatientManager(models.Manager):
 class Doctor(models.Model):
     First_Name = models.CharField(max_length=45)
     Last_Name = models.CharField(max_length=45)
+    email=models.CharField(max_length=45)
     password=models.CharField(max_length=255)
     Certificate = models.CharField(max_length=45)
     Location = models.CharField(max_length=45)
@@ -85,12 +86,15 @@ class Patient(models.Model):
     First_Name = models.CharField(max_length=45)
     Last_Name = models.CharField(max_length=45)
     password=models.CharField(max_length=255)
+    email=models.CharField(max_length=45)
     Personal_ID = models.CharField(max_length=45)
+    age = models.IntegerField()
     Marital_Status = models.CharField(max_length=45)
     Gender = models.CharField(max_length=45)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=PatientManager()
+
 
 
 class Profile(models.Model):
