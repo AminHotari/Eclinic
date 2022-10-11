@@ -31,9 +31,9 @@
 </head>
 <body style="background-color: #4B4B4A;">
     <header class="d-flex justify-content-between">
-        <h1 style="color: white; margin-top: 3%; margin-left: 1%;" >Welcome </h1>
+        <h1 style="color: white; margin-top: 3%; margin-left: 1%;" >Welcome Dr.{{DocName}} </h1>
         <img src="{% static 'css/images/222222222-removebg-preview.png'%}" alt="icon">
-        <a class="btn btn-secondary" role="button" aria-disabled="true">LogOut</a>
+        <a href="/logoutDoctor" class="btn btn-secondary" role="button" aria-disabled="true">LogOut</a>
     </header>
     <hr>
     <main>
@@ -45,13 +45,14 @@
                 <th>Time</th>
                 <th>Diagnosis</th>
             </tr>
-            
+            {%for app in ThisDoctorApp%}
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{app.patient.First_Name}}{{app.patient.Last_Name}}</td>
+                <td>{{app.patient.age}}</td>
+                <td>{{app.patient.vacancies}}</td>
                 <td><a href="">Show</a> </td>
             </tr>
+            {%endfor%}
             
         </table>
     </main>

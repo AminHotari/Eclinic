@@ -267,8 +267,26 @@
     .submit {
         margin-top: 40px;
         margin-bottom: 20px;
+        margin-left: 230px;
         background: #162E31;
         text-transform: uppercase;
+        color: white;
+        width: 20%;
+        border-radius: 10px;
+        padding-top: 5px;
+    }
+    .submit1{
+        margin-top: 40px;
+        margin-bottom: 20px;
+        margin-left: 105px;
+        background: #162E31;
+        text-transform: uppercase;
+        color: white;
+        width: 20%;
+        border-radius: 10px;
+        padding-top: 5px;
+        width: 30%;
+
     }
 
     .fb-btn {
@@ -313,24 +331,39 @@
         display: none;
 
     }
+    .msg{
+        color: red;
+        text-align: end;
+        
+    }
 </style>
 
 <body style="background-color: #4B4B4A;">
+    <div class="msg">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
     <br>
     <br>
     <div class="cont">
         <form action="/login" method="post">
+            {% csrf_token %}
             <div class="form sign-in">
                 <h2>Welcome</h2>
                 <label>
                     <span>Email</span>
-                    <input type="email" />
+                    <input type="email" name="email">
                 </label>
                 <label>
                     <span>Password</span>
-                    <input type="password" />
+                    <input type="password" name="password">
                 </label>
-                <button type="button" class="submit">Sign In</button>
+                <input type="submit" value="Login" class="submit">
             </div>
         </form>
         <div class="sub-cont">
@@ -348,55 +381,61 @@
                 </div>
             </div>
             <div class="form sign-up" style="display:flex ;">
-                <div class="hid">
-                    <h2>Create Patients Account</h2>
-                    <label>
-                        <span>First Name:</span>
-                        <input type="text" name="firstname">
-                    </label>
-                    <label>
-                        <span>Last Name:</span>
-                        <input type="text" name="lastname">
-                    </label>
-                    <label>
-                        <span>Email:</span>
-                        <input type="email" name="email">
-                    </label>
-                    <label>
-                        <span>Password:</span>
-                        <input type="password" name="password">
-                    </label>
-                    <label>
-                        <span>Confirm Paswword:</span>
-                        <input type="password" name="Cpassword">
-                    </label>
-                    <label>
-                        <span>ID Number:</span>
-                        <input type="text" name="ID">
-                    </label>
-                    <label>
-                        <span>Age:</span>
-                        <input type="text" name="age">
-                    </label>
-                    <label>
-                        <span>Gender:</span> <br>
-                        <select name="gender">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </label>
-                    <label>
-                        <span>Martial Status:</span> <br>
-                        <select name="marital">
-                            <option value="Married">Married</option>
-                            <option value="Single">Single</option>
-                            <option value="Divorsed">Divorsed</option>
-                        </select>
-                    </label>
-                    <button type="button" class="submit">Sign Up</button>
-                </div>
-                <div class="hid">
+                    <div class="hid">
+                        <h2>Create Patients Account</h2>
+                        <form action="/regestire1" method="post">
+                            {% csrf_token %}
+                        <label>
+                            <span>First Name:</span>
+                            <input type="text" name="firstname">
+                        </label>
+                        <label>
+                            <span>Last Name:</span>
+                            <input type="text" name="lastname">
+                        </label>
+                        <label>
+                            <span>Email:</span>
+                            <input type="email" name="email">
+                        </label>
+                        <label>
+                            <span>Password:</span>
+                            <input type="password" name="password">
+                        </label>
+                        <label>
+                            <span>Confirm Paswword:</span>
+                            <input type="password" name="Cpassword">
+                        </label>
+                        <label>
+                            <span>ID Number:</span>
+                            <input type="text" name="ID">
+                        </label>
+                        <label>
+                            <span>Birthday:</span>
+                            <input type="date" name="age">
+                        </label>
+                        <label>
+                            <span>Gender:</span> <br>
+                            <select name="gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Martial Status:</span> <br>
+                            <select name="marital">
+                                <option value="Married">Married</option>
+                                <option value="Single">Single</option>
+                                <option value="Divorsed">Divorsed</option>
+                            </select>
+                        </label>
+                        <input type="submit" value="SignUp" class="submit1">
+                </form>
+            </div>
+            
+            <div class="hid">
                     <h2>Create Doctor Account</h2>
+                    <form action="/regestire2" method="post">
+                        {% csrf_token %}
                     <label>
                         <span>First Name:</span>
                         <input type="text" name="firstname">
@@ -419,7 +458,7 @@
                     </label>
                     <label>
                         <span>Certificate:</span>
-                        <input type="file" name="Certificate">
+                        <input type="file" name="file">
                     </label>
                     <label>
                         <span>Medical Number:</span>
@@ -431,7 +470,7 @@
                     </label>
                     <label>
                         <span>Specilization:</span>
-                        <input type="text" name="Location">
+                        <input type="text" name="Specilization">
                     </label>
                     <label>
                         <span>Experience Since:</span>
@@ -439,12 +478,14 @@
                     </label>
                     <label>
                         <span>Phone number:</span>
-                        <input type="text" name="Phone number">
+                        <input type="text" name="Phonenumber">
                     </label>
-                    <button type="button" class="submit">Sign Up</button>
-                </div>
+                    <input type="submit" value="SignUp" class="submit1">
+                </form>
             </div>
+        
         </div>
+    </div>
     </div>
 
     <script>

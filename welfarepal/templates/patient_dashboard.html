@@ -28,9 +28,9 @@
 </head>
 <body style="background-color: #4B4B4A;">
     <header class="d-flex justify-content-between">
-        <h1 style="color: white; margin-top: 3%; margin-left: 1%;" >Welcome </h1>
+        <h1 style="color: white; margin-top: 3%; margin-left: 1%;" >Welcome {{PattientName}} </h1>
         <img src="{% static 'css/images/222222222-removebg-preview.png'%}" alt="icon">
-        <a class="btn btn-secondary" role="button" aria-disabled="true">LogOut</a>
+        <a href="/logoutPatient" class="btn btn-secondary" role="button" aria-disabled="true">LogOut</a>
     </header>
     <hr>
     <main style="margin-top: 8%;">
@@ -41,17 +41,19 @@
                 <th>Time</th>
                 <th>Edit</th>
             </tr>
-            
+            {% for myApp in ThisPattientApp%}
             <tr>
-                <td></td>
-                <td></td>
+                <td>{{myApp.doctor.First_Name}}{{myApp.doctor.Last_Name}}</td>
+                <td>{{myApp.vacancies}}</td>
                 <td><a href="">Cancel</a></td>
             </tr> 
+            {%endfor%}
             
         </table>
-        <form class="d-flex justify-content-between" action="" method="post">
+        <form class="d-flex justify-content-between" action="/home" method="post">
+            {% csrf_token %}
             <p></p>
-            <button type="button" class="btn btn-secondary" >Add new Appointment</button>
+            <input type="submit" class="btn btn-secondary" value="Add new Appointment" >
         </form>
     </main>
 </body>
