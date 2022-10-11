@@ -39,7 +39,7 @@ def logDocAndPatient(request):
             messages.error(request,"email is not found")
             return render(request,"LoginRegistration")
 
-
+# Patient Registration 
 def regPatient(request):
     errors = Patient.objects.Patient_validator(request.POST)
     email=request.POST['email'] 
@@ -55,16 +55,14 @@ def regPatient(request):
     id=request.POST['ID']
     Gender=request.POST['gender']
     Status=request.POST['marital']
+    age=request.POST['age']
     password=request.POST['password'] 
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
-    request.session['fname']= firstname
+    request.session['firstname']= firstname
     request.session['reglog']= True
-    patient=Patient.objects.create(First_Name=firstname, Last_Name=lastname, password=pw_hash, Personal_ID=id, Marital_Status=Status, Gender=Gender)
-    request.session['patientid']= patient.id
+    return redirect("/patientdashboard")
 
-    return redirect("/dashboard")
-
-
+# Dr Registration 
 def regDoc(request):
     errors = Doctor.objects.Doctor_validator(request.POST)
     email=request.POST['email'] 
@@ -74,7 +72,6 @@ def regDoc(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect("/")
-
     firstname=request.POST['firstname']
     lastname=request.POST['lastname']
     password=request.POST['password'] 
@@ -85,12 +82,11 @@ def regDoc(request):
     MedicalNumber=request.POST['id']
     Experience=request.POST['Experience']
     Phone_Number=request.POST['Phone_Number']
-    request.session['fname']= firstname
+    request.session['firstname']= firstname
     request.session['reglog']= True
-    thisDoctor=Doctor.objects.create(fname=firstname,lname=lastname,email=email,password=pw_hash,MedicalNumber=MedicalNumber,Certificate=Certificate,Location=Location,Specialization=Specialization,Experience=Experience,Phone_Number=Phone_Number)
+    thisDoctor=Doctor.objects.create(firstname=firstname,lname=lastname,email=email,password=pw_hash,MedicalNumber=MedicalNumber,Certificate=Certificate,Location=Location,Specialization=Specialization,Experience=Experience,Phone_Number=Phone_Number)
     request.session['drid']= thisDoctor.id
-
-    return redirect("/dashboard")
+    return redirect("/drdashboard")
 
     
 def specialization(request,special):
@@ -128,21 +124,3 @@ def profile(request,id):
         'profile':profile
     }
     return render(request,"patientprofile.html",context)
-
-
-def home (request):
-    return render (request , 'home.html')
-def LogOrReg (request):
-    return render (request , 'LoginAndReg.html')
-def Us(request):
-    return render (request , 'Us.html')
-
-
-
-
-
-
-
-
-
-
