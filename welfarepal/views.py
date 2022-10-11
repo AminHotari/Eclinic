@@ -12,83 +12,116 @@ def frontpage(request):
 def logDocAndPatient(request):
     email=request.POST['email']
     password=request.POST['password']
-    if email in Doctor.objects.email.all():
-        if Doctor.objects.filter(email = email):
-            doctor=Doctor.objects.get(email = email)
+    if Doctor.objects.filter(email = email):
+            doctor=Doctor.objects.get(email = request.POST['email'])
             if bcrypt.checkpw(password.encode(), doctor.password.encode()): #dr.password == password:
                 request.session['fname']=doctor.First_Name
                 request.session['reglog']=False #False indicates login while True indicates Register
                 request.session['drid']=doctor.id
-                return redirect("/dashboard")
+                id=request.session['drid']
+                return redirect("/DoctorDash/" +str(id))
             else:
                 messages.error(request,"password is not valid")
-    elif email in Patient.objects.email.all():
-        if Patient.objects.filter(email = email):
-            patient=Patient.objects.get(email = email)
+                return redirect ('/reg')
+    elif Patient.objects.filter(email = email):
+            patient=Patient.objects.get(email = request.POST['email'])
             if bcrypt.checkpw(password.encode(), patient.password.encode()): #patient.password == password:
                 request.session['fname']=patient.First_Name
                 request.session['reglog']=False #False indicates login while True indicates Register
                 request.session['patientid']=patient.id
-                return redirect("/dashboard")
+                id=request.session['patientid']
+                return redirect("/patientDash/" + str(id))
             else:
                 messages.error(request,"password is not valid")
-        else:
-            messages.error(request,"email is not found")
-        return render(request,"LoginRegistration")
+                return redirect ('/reg')
     else:
-            messages.error(request,"email is not found")
-            return render(request,"LoginRegistration")
+        messages.error(request,"email is not found")
+        return redirect("/reg")
+  
+def DoctorDash(request ,id):
+    ThisDoctor = Doctor.objects.get(id=id)
+    context = {
+        'DocName' : ThisDoctor.First_Name ,
+        'ThisDoctorApp' : ThisDoctor.appointments.all(),
+    }
+    
+    return render (request,'doctor_dashboard.html' ,context)
 
-# Patient Registration 
+def PatientDash (request , id):
+    ThisPattient = Patient.objects.get(id=id)
+    context = {
+        'PattientName' : ThisPattient.First_Name ,
+        'ThisPattient' : ThisPattient,
+        'ThisPattientApp' : ThisPattient.appointments.all()
+
+    }
+    return render (request , 'patient_dashboard.html' , context)
+
+
 def regPatient(request):
     errors = Patient.objects.Patient_validator(request.POST)
     email=request.POST['email'] 
-    if Patient.objects.filter(email = email):
-        errors['email1'] = "already existed email address!"
+    # if Patient.objects.filter(email = email):
+    #     errors['email1'] = "already existed email address!"
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect("/")
 
-    firstname=request.POST['firstname']
-    lastname=request.POST['lastname']
-    id=request.POST['ID']
-    Gender=request.POST['gender']
-    Status=request.POST['marital']
-    age=request.POST['age']
-    password=request.POST['password'] 
-    pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
-    request.session['firstname']= firstname
-    request.session['reglog']= True
-    patient=Patient.objects.create(First_Name=firstname, Last_Name=lastname,email=email, password=pw_hash, Personal_ID=id, Marital_Status=Status, Gender=Gender)
-    request.session['patientid']= patient.id ###
-    return redirect("/patientdashboard")
+        return render(request , 'LoginAndReg.html')
+    
+    else :
+        firstname=request.POST['firstname']
+        lastname=request.POST['lastname']
+        Email = request.POST['email']
+        id=request.POST['ID']
+        Age=request.POST['age']
+        Gender=request.POST['gender']
+        Status=request.POST['marital']
+        password=request.POST['password']
+        pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
+        request.session['fname']= firstname
+        request.session['reglog']= True
+        patient=Patient.objects.create(First_Name=firstname , Last_Name=lastname ,password=pw_hash , email=Email , Personal_ID =id, age=Age,
+        Marital_Status = Status , Gender = Gender )
+        request.session['patientid']= patient.id
+
+        return redirect("/patientDash")
+
+
 
 # Dr Registration 
 def regDoc(request):
     errors = Doctor.objects.Doctor_validator(request.POST)
     email=request.POST['email'] 
-    if Doctor.objects.filter(email = email):
-        errors['email1'] = "already existed email address!"
+    # if Doctor.objects.filter(email = email):
+    #     errors['email1'] = "already existed email address!"
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect("/")
+
+        return render(request , 'LoginAndReg.html')
+    
+
     firstname=request.POST['firstname']
     lastname=request.POST['lastname']
     password=request.POST['password'] 
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
-    Certificate=request.POST['Certificate']
+    Email = request.POST['email']
+    Certificate=request.POST['file']
     Location=request.POST['Location']
-    Specialization=request.POST['Specialization']
+    Specialization=request.POST['Specilization']
     MedicalNumber=request.POST['id']
     Experience=request.POST['Experience']
-    Phone_Number=request.POST['Phone_Number']
-    request.session['firstname']= firstname
+
+    Phone_Number=request.POST['Phonenumber']
+    request.session['fname']= firstname
     request.session['reglog']= True
-    thisDoctor=Doctor.objects.create(firstname=firstname,lname=lastname,email=email,password=pw_hash,MedicalNumber=MedicalNumber,Certificate=Certificate,Location=Location,Specialization=Specialization,Experience=Experience,Phone_Number=Phone_Number)
+    thisDoctor=Doctor.objects.create(First_Name=firstname,Last_Name=lastname,email=Email,password=pw_hash
+    ,MedicalNumber=MedicalNumber,Certificate=Certificate,Location=Location,Specialization=Specialization,Experience=Experience,Phone_Number=Phone_Number)
     request.session['drid']= thisDoctor.id
-    return redirect("/drdashboard")
+
+    return redirect("/DoctorDash")
+
 
     
 def specialization(request,special):
@@ -125,4 +158,23 @@ def profile(request,id):
     context={
         'profile':profile
     }
+
     return render(request,"patientprofile.html",context)
+
+
+def home (request):
+    return render (request , 'home.html')
+def LogOrReg (request):
+    return render (request , 'LoginAndReg.html')
+def Us(request):
+    return render (request , 'Us.html')
+
+
+
+
+def logoutP (request) :
+    del request.session['patientid']
+    return redirect ('/')
+def logoutD (request) :
+    del request.session['drid']
+    return redirect ('/')
