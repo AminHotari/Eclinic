@@ -6,41 +6,38 @@ from .models import *
 import bcrypt
 
 def frontpage(request):
-    return render(request,"frontpage")
+    return render(request,"MainPage.html")
 
 
-def logDoc(request):
+def logDocAndPatient(request):
     email=request.POST['email']
     password=request.POST['password']
-    if Doctor.objects.filter(email = email):
-        doctor=Doctor.objects.get(email = email)
-        if bcrypt.checkpw(password.encode(), doctor.password.encode()): #dr.password == password:
-            request.session['fname']=doctor.First_Name
-            request.session['reglog']=False #False indicates login while True indicates Register
-            request.session['drid']=doctor.id
-            return redirect("/dashboard")
+    if email in Doctor.objects.email.all():
+        if Doctor.objects.filter(email = email):
+            doctor=Doctor.objects.get(email = email)
+            if bcrypt.checkpw(password.encode(), doctor.password.encode()): #dr.password == password:
+                request.session['fname']=doctor.First_Name
+                request.session['reglog']=False #False indicates login while True indicates Register
+                request.session['drid']=doctor.id
+                return redirect("/dashboard")
+            else:
+                messages.error(request,"password is not valid")
+    elif email in Patient.objects.email.all():
+        if Patient.objects.filter(email = email):
+            patient=Patient.objects.get(email = email)
+            if bcrypt.checkpw(password.encode(), patient.password.encode()): #patient.password == password:
+                request.session['fname']=patient.First_Name
+                request.session['reglog']=False #False indicates login while True indicates Register
+                request.session['patientid']=patient.id
+                return redirect("/dashboard")
+            else:
+                messages.error(request,"password is not valid")
         else:
-            messages.error(request,"password is not valid")
+            messages.error(request,"email is not found")
+        return render(request,"LoginRegistration")
     else:
-        messages.error(request,"email is not found")
-    return render(request,"LoginRegistration")
-
-
-def logPatient(request):
-    email=request.POST['email']
-    password=request.POST['password']
-    if Patient.objects.filter(email = email):
-        patient=Patient.objects.get(email = email)
-        if bcrypt.checkpw(password.encode(), patient.password.encode()): #dr.password == password:
-            request.session['fname']=patient.First_Name
-            request.session['reglog']=False #False indicates login while True indicates Register
-            request.session['patientid']=patient.id
-            return redirect("/dashboard")
-        else:
-            messages.error(request,"password is not valid")
-    else:
-        messages.error(request,"email is not found")
-    return render(request,"LoginRegistration")
+            messages.error(request,"email is not found")
+            return render(request,"LoginRegistration")
 
 
 def regPatient(request):
@@ -131,6 +128,14 @@ def profile(request,id):
         'profile':profile
     }
     return render(request,"patientprofile.html",context)
+
+
+def home (request):
+    return render (request , 'home.html')
+def LogOrReg (request):
+    return render (request , 'LoginAndReg.html')
+def Us(request):
+    return render (request , 'Us.html')
 
 
 

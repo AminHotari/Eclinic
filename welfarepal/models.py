@@ -27,7 +27,10 @@ class DrManager(models.Manager):
             errors["desc"] = "password should be at least 8 characters"
 
         if postData['password']!=postData['cpassword']:
-            errors["password"] = "Password and its confirmation does not match"   
+            errors["password"] = "Password and its confirmation does not match"
+        for E in Doctor.objects.all():
+            if postData['email']==E.email:
+                errors["DuplicateEmail"]="This Email is Taken"
 
         return errors
 
@@ -54,7 +57,10 @@ class PatientManager(models.Manager):
             errors["desc"] = "password should be at least 8 characters"
 
         if postData['password']!=postData['cpassword']:
-            errors["password"] = "Password and its confirmation does not match"   
+            errors["password"] = "Password and its confirmation does not match" 
+        for E in Patient.objects.all():
+            if postData['email']==E.email:
+                errors["DuplicateEmail"]="This Email is Taken"  
 
         return errors
 

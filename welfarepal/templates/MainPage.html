@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPEKYULO</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/MainPage.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/MainPage.css' %}">
 </head>
 
 <body>
@@ -16,13 +16,15 @@
             <img src="{% static 'css/images/222222222-removebg-preview.png'%}" alt="icon">
             <a href="/home">Home</a>
             <a href="/reg">Regstration</a>
-            <a href="/login">Login</a>
+            <a href="/reg">Login</a>
             <a href="/contactUs">Contact Us</a>
         </header>
         <p>IPEKYULO is a clinic that <br>
             offers primary care services , diagnosis , and <br>
             treatment of mild symptoms</p>
-        <button class="btn">Learn More</button>
+        <form action="/learnMore" style="height: 70%;">
+            <button class="btn">Learn More</button>
+        </form>
     </main>
     <footer>
         <p class="ft">Visit
