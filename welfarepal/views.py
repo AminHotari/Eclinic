@@ -60,6 +60,8 @@ def regPatient(request):
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
     request.session['firstname']= firstname
     request.session['reglog']= True
+    patient=Patient.objects.create(First_Name=firstname, Last_Name=lastname,email=email, password=pw_hash, Personal_ID=id, Marital_Status=Status, Gender=Gender)
+    request.session['patientid']= patient.id ###
     return redirect("/patientdashboard")
 
 # Dr Registration 
