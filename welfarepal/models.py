@@ -20,13 +20,13 @@ class DrManager(models.Manager):
         if not EMAIL_REGEX.match(postData['email']):    # test whether a field matches the pattern            
             errors['email'] = "Invalid email address!"
 
-        if len(postData['ID']) != 8:
+        if len(postData['id']) != 8:
             errors["desc"] = "Your ID does not seem to be correct"
 
         if len(postData['password']) < 8:
             errors["desc"] = "password should be at least 8 characters"
 
-        if postData['password']!=postData['cpassword']:
+        if postData['password']!=postData['Cpassword']:
             errors["password"] = "Password and its confirmation does not match"
         for E in Doctor.objects.all():
             if postData['email']==E.email:
@@ -50,13 +50,13 @@ class PatientManager(models.Manager):
         if not EMAIL_REGEX.match(postData['email']):    # test whether a field matches the pattern            
             errors['email'] = "Invalid email address!"
 
-        if len(postData['ID']) != 8:
+        if len(postData['ID']) != 9:
             errors["desc"] = "Your ID does not seem to be correct"
 
         if len(postData['password']) < 8:
             errors["desc"] = "password should be at least 8 characters"
 
-        if postData['password']!=postData['cpassword']:
+        if postData['password']!=postData['Cpassword']:
             errors["password"] = "Password and its confirmation does not match" 
         for E in Patient.objects.all():
             if postData['email']==E.email:
@@ -71,7 +71,8 @@ class Doctor(models.Model):
     Last_Name = models.CharField(max_length=45)
     email=models.CharField(max_length=45)
     password=models.CharField(max_length=255)
-    Certificate = models.CharField(max_length=45)
+    email=models.CharField(max_length=255)
+    Certificate = models.FileField()
     Location = models.CharField(max_length=45)
     Specialization = models.CharField(max_length=45)
     Experience = models.DateTimeField()
@@ -86,7 +87,10 @@ class Patient(models.Model):
     First_Name = models.CharField(max_length=45)
     Last_Name = models.CharField(max_length=45)
     password=models.CharField(max_length=255)
-    email=models.CharField(max_length=45)
+
+    email=models.CharField(max_length=255)
+    age=models.DateTimeField(null=True)
+
     Personal_ID = models.CharField(max_length=45)
     age = models.IntegerField()
     Marital_Status = models.CharField(max_length=45)
