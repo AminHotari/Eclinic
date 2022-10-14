@@ -28,7 +28,7 @@
      *  Users are able to see what clinics avilable in website, if they press on home on top of the navigation bar.
      *  Users are able to contact us, if they press on contact us on top of the navigation bar.
    ### Main Page Preview:
-   ![play](https://user-images.githubusercontent.com/110983334/195920903-d816e521-3550-41d4-9a7b-3f7f2ec73feb.png)
+   ![play]
 ## Home Page:
 * Features:
      *  Display types of clinics in our website.
