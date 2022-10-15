@@ -129,6 +129,7 @@
 - Django - version 2.2.4.
 - bootstrap - version 4.5.3.
 - jQuery and AJAX.
+
   ![Technologies](https://user-images.githubusercontent.com/75543501/121818529-7417b600-cc90-11eb-97b0-59ebfe43f47c.png)
 ## Done by:
 - Abdalfattah Hasanat. 
