@@ -21,7 +21,7 @@
 
 ```python manage.py runserver``` then navigate to  [127.0.0.1:8000](https://localhost:8000).
 ## **Abstract:**
-#### *Our project is a website for booking online to clinic and a doctor that will make it easy for the patient to navigate through different clinics that are in website.The website navbar contains Home, Registration, Login, and Contact Us. After choose the clinic, the patient can view all doctors are in it with each free time for each doctor that mentioned by a doctor .The patients can add an appointment if they log in.They will also have the chance to knew their diagnosis ,and they also have the chance to cancel any appointment (AJAX working in this button).The doctors have to update diagnosis of patient in the patient diagnosis page to knew the status diagnosis of that patient. All the pages in our website aregoing to be responsive.*
+#### *Our project is a website for booking online to clinic and a doctor that will make it easy for the patient to navigate through different clinics that are in website.The website navegation bar contains Home, Registration, Login, and Contact Us. After choose the clinic, the patient can see all doctors are in it with each free time for each doctor that mentioned by a doctor .The patients can add an appointment if they log in.They will also have the chance to knew their diagnosis ,and they also have the chance to cancel any appointment (AJAX working in this button).The doctors have to update diagnosis of patient in the patient diagnosis page to knew the status diagnosis of that patient. All the pages in our website aregoing to be responsive.*
 ## Main Page:
 * Features:
      *  Mainpage have a navigation bar contains a route to (Home),(Registration), (Login), and (Contact Us).
