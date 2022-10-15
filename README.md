@@ -63,9 +63,9 @@
 * Features
    * The doctor dashboard page can be viewed when a doctor login.
    * The doctor dashboard page include an appointments that doctor have. 
-   * If doctor click on confirm that mean he is confirm the appointment.
    * Edit button send to a page let doctor add which time free for him.
-   * If doctor click on show send him to patient diagnosis page who's make an appointment. 
+   * If doctor click on show send him to patient diagnosis page who's make an appointment.
+   * After doctor finished the patient visit click on confirm visit send to update page to add his diagnosis to patient diagnosis page. 
    * Logout button redirect to main page.  
   ### Doctor Dashboard Preview
   ![2]()
@@ -80,12 +80,21 @@
   ![2]()
 ## CheckBox Page:
 * Features
-   * The CheckBox page display days with time.
+   * The checkbox page display days with time.
    * The doctor can book which day and time free for him.
    * When click on book sessions button add the choosen day and time to specialize page.
    * Back button redirect to doctor dashboard page. 
    * Logout button redirect to main page.  
   ### CheckBox Preview
+  ![2]()
+## Update Page:
+* Features
+   * The update page display a form to a doctor user.
+   * The doctor can add his diagnosis after patient visit.
+   * When click on update button the diagnosis added to patient diagnosis page.
+   * Dashboard button redirect to doctor dashboard page. 
+   * Logout button redirect to main page.  
+  ### Update Preview
   ![2]()
 ## Patient Diagnosis Page:
 * Features
