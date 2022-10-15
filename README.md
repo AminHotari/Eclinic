@@ -124,7 +124,7 @@
 ## Done by:
 - Abdalfattah Hasanat. 
 - Ra'd Abdallah.  
-- Sura Qalalwh.
+- Sura Qalalwa.
 - Amin Hotari.
 
 ## Superviser:
