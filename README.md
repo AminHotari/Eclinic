@@ -10,6 +10,7 @@
 * [Doctor Dashboard Page](#doctor-dashboard-page)
 * [Patient Dashboard Page](#patient-dashboard-page)
 * [CheckBox Page](#checkbox-page)
+* [Update Page](#update-page)
 * [Patient Diagnosis Page](#patient-diagnosis-page)
 * [Specialize Page](#specialize-page)
 * [Available Appointments Page](#available-appointments-page)
