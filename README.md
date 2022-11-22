@@ -53,7 +53,7 @@
     *	Passwords are encrypted.
     *	Validations are done in real time
     *	User information are saved in session, so they don’t need to log in again.
-    * User will be able to login.
+    *   User will be able to login.
     *	User is only able to login with a valid password and email.
     *	User should be saved in session when registered successfully.
   ### Login/Register Preview
